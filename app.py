@@ -15,7 +15,9 @@ import os
 
 
 def init():
-    model_dir = snapshot_download("internlm-chat-7b", cache_dir="./", revision="v1.0.3")
+    model_dir = snapshot_download(
+        "Shanghai_AI_Laboratory/internlm-chat-7b", cache_dir="./", revision="v1.0.3"
+    )
     os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
     # 下载模型
     os.system(

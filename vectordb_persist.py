@@ -7,6 +7,7 @@ from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from tqdm import tqdm
 import os
 
+
 # 获取文件路径函数
 def get_files(dir_path):
     # args：dir_path，目标文件夹路径
@@ -22,6 +23,7 @@ def get_files(dir_path):
                 file_list.append(os.path.join(filepath, filename))
     return file_list
 
+
 # 加载文件函数
 def get_text(dir_path):
     # args：dir_path，目标文件夹路径
@@ -31,16 +33,17 @@ def get_text(dir_path):
     docs = []
     # 遍历所有目标文件
     for one_file in tqdm(file_lst):
-        file_type = one_file.split('.')[-1]
-        if file_type == 'md':
+        file_type = one_file.split(".")[-1]
+        if file_type == "md":
             loader = UnstructuredMarkdownLoader(one_file)
-        elif file_type == 'txt':
+        elif file_type == "txt":
             loader = UnstructuredFileLoader(one_file)
         else:
             # 如果是不符合条件的文件，直接跳过
             continue
         docs.extend(loader.load())
     return docs
+
 
 # 目标文件夹
 tar_dir = [
@@ -50,7 +53,7 @@ tar_dir = [
     # "/root/data/lmdeploy",
     # "/root/data/opencompass",
     "/root/data/xtuner",
-    "/root/data/2020.txt"
+    "/root/data/2020.txt",
 ]
 
 # 加载目标文件
@@ -59,21 +62,20 @@ for dir_path in tar_dir:
     docs.extend(get_text(dir_path))
 
 # 对文本进行分块
-text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=100, chunk_overlap=50)
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=50)
 split_docs = text_splitter.split_documents(docs)
 
 # 加载开源词向量模型
-embeddings = HuggingFaceEmbeddings(model_name="/root/data/model/sentence-transformer")
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformer")
 
 # 构建向量数据库
 # 定义持久化路径
-persist_directory = 'data_base/vector_db/diy'
+persist_directory = "sd"
 # 加载数据库
 vectordb = Chroma.from_documents(
     documents=split_docs,
     embedding=embeddings,
-    persist_directory=persist_directory  # 允许我们将persist_directory目录保存到磁盘上
+    persist_directory=persist_directory,  # 允许我们将persist_directory目录保存到磁盘上
 )
 # 将加载的向量数据库持久化到磁盘上
 vectordb.persist()

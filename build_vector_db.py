@@ -3,13 +3,10 @@ from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 import os
 
 # 定义 Embeddings
-embeddings = HuggingFaceEmbeddings(model_name="/root/data/model/sentence-transformer")
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformer")
 
 # 向量数据库持久化路径
-persist_directory = 'data_base/vector_db/diy'
+persist_directory = "sd"
 
 # 加载数据库
-vectordb = Chroma(
-    persist_directory=persist_directory, 
-    embedding_function=embeddings
-)
+vectordb = Chroma(persist_directory=persist_directory, embedding_function=embeddings)

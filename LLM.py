@@ -47,5 +47,5 @@ class InternLM_LLM(LLM):
 
 if __name__ == "main":
     # 测试代码
-    llm = InternLM_LLM(model_path="internlm-chat-7b")
+    llm = InternLM_LLM(model_path="Shanghai_AI_Laboratory/internlm-chat-7b")
     print(llm.predict("你是谁"))

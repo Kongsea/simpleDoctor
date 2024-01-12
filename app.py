@@ -65,7 +65,7 @@ def load_chain():
     )
 
     # 加载自定义 LLM
-    llm = InternLM_LLM(model_path="internlm-chat-7b")
+    llm = InternLM_LLM(model_path="Shanghai_AI_Laboratory/internlm-chat-7b")
 
     # 定义一个 Prompt Template
     template = """使用以下上下文来给出最后的诊断。如果你不知道怎么诊断，就说你不清楚，不要试图编造答

@@ -5,6 +5,7 @@ sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 
 # 导入必要的库
 import gradio as gr
+from langchain.chains import RetrievalQA
 from langchain.vectorstores import Chroma
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from LLM import InternLM_LLM
